@@ -14,8 +14,7 @@ namespace http {
 namespace server {
 
 class server
-  : private boost::noncopyable
-{
+  : private boost::noncopyable {
 public:
   explicit server(const std::string& address, const std::string& port,
       const std::string& doc_root, std::size_t io_service_pool_size);

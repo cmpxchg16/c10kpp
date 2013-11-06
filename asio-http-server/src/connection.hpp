@@ -16,30 +16,30 @@
 namespace http {
 namespace server {
 
-class connection
-  : public boost::enable_shared_from_this<connection>,
-    private boost::noncopyable
-{
+class connection: public boost::enable_shared_from_this<connection>,
+		private boost::noncopyable {
 public:
-  explicit connection(boost::asio::io_service& io_service, request_handler& handler);
-  boost::asio::ip::tcp::socket& socket();
-  void start();
+	explicit connection(boost::asio::io_service& io_service,
+			request_handler& handler);
+	boost::asio::ip::tcp::socket& socket();
+	void start();
 
 private:
-  void handle_read(const boost::system::error_code& e, std::size_t bytes_transferred);
-  void handle_write(const boost::system::error_code& e);
-  void start_file_read();
-  void handle_write_file(const boost::system::error_code& err);
-  void close();
-  boost::asio::ip::tcp::socket socket_;
-  request_handler& request_handler_;
-  boost::array<char, 8192> buffer_;
-  boost::array<char, 2048> file_buffer_;
-  request request_;
-  request_parser request_parser_;
-  reply reply_;
-  std::ifstream file_;
-  std::string full_file_path_;
+	void handle_read(const boost::system::error_code& e,
+			std::size_t bytes_transferred);
+	void handle_write(const boost::system::error_code& e);
+	void start_file_read();
+	void handle_write_file(const boost::system::error_code& err);
+	void close();
+	boost::asio::ip::tcp::socket socket_;
+	request_handler& request_handler_;
+	boost::array<char, 8192> buffer_;
+	boost::array<char, 2048> file_buffer_;
+	request request_;
+	request_parser request_parser_;
+	reply reply_;
+	std::ifstream file_;
+	std::string full_file_path_;
 };
 
 typedef boost::shared_ptr<connection> connection_ptr;
