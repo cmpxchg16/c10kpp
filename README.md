@@ -17,6 +17,21 @@ The goal of that project is to provide a research on network server programming 
 ## Building
 
     make
+    
+## Environment
+
+### Sysctl:
+
+    net.ipv4.tcp_tw_recycle = 1
+    net.ipv4.tcp_tw_reuse = 1
+    net.ipv4.tcp_fin_timeout = 1
+    net.ipv4.tcp_timestamps = 1
+    net.ipv4.tcp_syncookies = 0
+    net.ipv4.ip_local_port_range = 1024 65535
+    kernel.pid_max = 4194303
+    kernel.threads-max = 4194303
+    vm.max_map_count = 4194303
+
 
 ## License
 
