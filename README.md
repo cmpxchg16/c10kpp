@@ -1,6 +1,6 @@
 ## Introduction
 
-The goal of that project is to provide a research on network server programming approaches. The programming approaches we will inspect:
+The goal of that project is to provide a research on network server programming approaches to solve the c10k (c100k...cNk). The programming approaches we will inspect:
 
 * Native thread per socket 
   (synchronous handling)
