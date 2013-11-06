@@ -32,6 +32,10 @@ The goal of that project is to provide a research on network server programming 
     kernel.threads-max = 4194303
     vm.max_map_count = 4194303
 
+### change the maximum of open files:
+
+    $>ulimit -n 200000
+
 
 ## License
 
