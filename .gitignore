@@ -1,0 +1,4 @@
+*.o
+*.so
+asio-http-server/bin/*
+threads-http-server/bin/*
