@@ -1,6 +1,6 @@
 ## Introduction
 
-The goal of that project is to provide a research on netowrk server programming approaches. The programming approaches we will show:
+The goal of that project is to provide a research on netowrk server programming approaches. The programming approaches we will inspect:
 
 * Native thread per socket 
   (synchronous handling)
