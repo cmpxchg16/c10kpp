@@ -5,7 +5,7 @@ The goal of that project is to provide a research on network server programming 
 * Native thread per socket 
   (synchronous handling)
 * State machine based on epoll 
-  (native thread per core, asynchronous handling::Reactor pattern)
+  (native thread per core, asynchronous handling)
 * Green thread per socket (codenames: Coroutine/Fiber) 
   (native thread per core, synchronous handling (asynchronous under the hood))
 
