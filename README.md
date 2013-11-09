@@ -39,7 +39,7 @@ The goal of that project is to provide a research on network server programming 
 
 ## License
 
-Licensed under the MIT License.
+Licensed under the terms and conditions of the GNU General Public License (GPL) version 2, or, at your discretion, any later version.
 
 ## Authors
 
