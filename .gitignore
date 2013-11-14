@@ -1,4 +1,21 @@
-*.o
-*.so
-asio-http-server/bin/*
-threads-http-server/bin/*
+# General ignore list
+.*.swp
+
+# autoconf/automake generated files
+/Makefile.in
+/aclocal.m4
+/autom4te.cache
+/config.h.in
+/configure
+/depcomp
+/install-sh
+/missing
+
+# configure stage files
+/Makefile
+/config.h
+/config.log
+/config.status
+/stamp-h1
+.deps
+.dirstamp
