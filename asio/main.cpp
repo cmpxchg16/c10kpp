@@ -17,12 +17,14 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
+#include "config.h"
+
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
-#include "../server.hpp"
+#include "server.hpp"
 
 int main(int argc, char* argv[]) {
 	try {

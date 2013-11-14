@@ -17,6 +17,8 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
  */
+#include "config.h"
+
 #include "server.hpp"
 #include <stdexcept>
 #include <boost/thread/thread.hpp>
