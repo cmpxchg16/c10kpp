@@ -11,12 +11,16 @@ The goal of that project is to provide a research on network server programming 
 
 ## Dependencies
 
-* gcc 4.7 ++
+* gcc 4.7 ++ (or anything else that support rudimentary C++11)
 * boost 1.49
+* autoconf and automake
 
 ## Building
 
-    make
+1. Run `autoreconf -i` to create the configure script.
+2. Optional: Create a directory for the specific variant, e.g.: `mkdir build_noaffinity`. Change into it.
+3. Run configure from the source dir. For the example in 2 above, run `../configure --disable-affinity`.
+4. `make`.
     
 ## Environment
 
@@ -34,7 +38,7 @@ The goal of that project is to provide a research on network server programming 
 
 ### change the maximum of open files:
 
-    $>ulimit -n 200000
+    $ ulimit -n 200000
 
 
 ## License
