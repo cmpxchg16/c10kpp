@@ -84,5 +84,38 @@ AC_COMPILE_IFELSE( [AC_LANG_PROGRAM([
     ]
 )
 
+AC_MSG_CHECKING([which wakeup mechanism to use])
+AC_ARG_ENABLE( [pipe-ipc],
+	AC_HELP_STRING(
+	    [--enable-pipe-ipc],
+	    [Use pipe IPC (instead of lock based shared memory) to activate worker threads]),
+	[ AC_MSG_RESULT([pipes]) ],
+	[
+	    AC_DEFINE([PTHREADS_IPC], [1], [Use shared memory and a lock to wake up worker threads])
+	    AC_MSG_RESULT([pthread condition])
+       	] )
+
+AC_MSG_CHECKING([whether to set thread affinity])
+AC_ARG_ENABLE( [affinity],
+	AC_HELP_STRING(
+	    [--disable-affinity],
+	    [Disable thread to CPU affinity]),
+	[
+	    AC_MSG_RESULT([$enableval])
+	    AFFINITY="$enableval"
+	],
+	[
+	    AC_MSG_RESULT([yes])
+	    AFFINITY="yes"
+       	] )
+[
+if test "yes" = "$AFFINITY"
+then
+]
+    AC_DEFINE([USE_AFFINITY], [1], [Set strong affinity between worker theread and CPU])
+[
+fi
+]
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

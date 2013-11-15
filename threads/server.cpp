@@ -42,11 +42,6 @@
 
 #include "blocking-queue.h"
 
-#ifndef PIPE_IPC
-#undef PTHREAD_IPC
-#define PTHREAD_IPC
-#endif
-
 typedef struct {
 	int core;
 #ifdef PTHREAD_IPC
@@ -242,7 +237,7 @@ void* acceptor(void* arg) {
 	setaffinity(a_args->core);
 #endif
 
-#ifdef PIPE_IPC
+#ifndef PTHREAD_IPC
 	int pipefd[2];
 
 	if (pipe(pipefd) == -1)
@@ -259,7 +254,7 @@ void* acceptor(void* arg) {
 	handler_args h_args;
 	h_args.core = a_args->core;
 
-#ifdef PIPE_IPC
+#ifndef PTHREAD_IPC
 	h_args.pipefd = pipefd[0];
 #endif
 
