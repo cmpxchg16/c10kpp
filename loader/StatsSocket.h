@@ -11,6 +11,16 @@
 class TaskStats;
 
 class StatsSocket {
+public:
+    class EOFException : public std::exception
+    {
+    public:
+        const char *what() const throw()
+        {
+            return "Premature server disconnect";
+        }
+    };
+private:
     unique_fd m_fd;
     Time m_startTime;
 

@@ -36,11 +36,55 @@ StatsSocket::StatsSocket( TaskStats *taskStats, const sockaddr *addr, socklen_t 
         throw std::system_error( errno, std::system_category(), "Connection failed" );
 }
 
-#if 0
-size_t StatsSocket::write( const char *buffer, size_t len );
+size_t StatsSocket::write( const char *buffer, size_t len )
+{
+    ssize_t ret = ::write( m_fd, buffer, len );
+    if( ret<0 )
+        // Even if EAGAIN, due to YAGNI
+        throw std::system_error( errno, std::system_category(), "Socket write failed" );
 
-size_t StatsSocket::read();
+    return ret;
+}
 
-const char *StatsSocket::getBuffer() const;
-void StatsSocket::consume( size_t bytes );
-#endif
+size_t StatsSocket::read()
+{
+    assert( m_bufferFill>=m_bufferConsumed );
+
+    // We have unconsumed data in the buffer
+    if( m_bufferFill>m_bufferConsumed )
+        return m_bufferConsumed-m_bufferFill;
+
+    assert( m_bufferFill==0 );
+
+    ssize_t ret = ::read( m_fd, m_buffer, BUFFER_SIZE );
+    if( ret<0 ) {
+        if( errno!=EAGAIN )
+            throw std::system_error( errno, std::system_category(), "Socket read failed" );
+
+        // errno = EAGAIN
+        return 0;
+    }
+
+    if( ret==0 )
+        throw EOFException();
+
+    m_bufferFill += ret;
+
+    return ret;
+}
+
+const char *StatsSocket::getBuffer() const
+{
+    return m_buffer + m_bufferFill;
+}
+
+void StatsSocket::consume( size_t bytes )
+{
+    assert( bytes<=( m_bufferFill - m_bufferConsumed ) );
+
+    m_bufferConsumed += bytes;
+    
+    if( m_bufferConsumed==m_bufferFill ) {
+        m_bufferFill = m_bufferConsumed = 0;
+    }
+}
