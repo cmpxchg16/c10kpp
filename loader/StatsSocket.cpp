@@ -16,17 +16,31 @@
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+
 #include "config.h"
 
+#include "StatsSocket.h"
 #include "time.h"
 
-#include <unistd.h>
+#include <assert.h>
 
-main()
+StatsSocket::StatsSocket( TaskStats *taskStats, const sockaddr *addr, socklen_t addrlen ) :
+    m_fd( socket(addr->sa_family, SOCK_STREAM, 0), "Socket creation failed" ),
+    m_startTime(Time::now()), m_taskStats(taskStats),
+    m_bufferFill(0), m_bufferConsumed(0)
 {
-    Time start = Time::now();
-    usleep(1500000);
-    Time end = Time::now();
+    if( fcntl( m_fd, F_SETFL, O_NONBLOCK )<0 )
+        throw std::system_error( errno, std::system_category(), "Setting non-block failed" );
 
-    std::cout<<"From "<<start<<" to "<<end<<" elapsed "<<end-start<<std::endl;
+    if( connect( m_fd, addr, addrlen )<0 )
+        throw std::system_error( errno, std::system_category(), "Connection failed" );
 }
+
+#if 0
+size_t StatsSocket::write( const char *buffer, size_t len );
+
+size_t StatsSocket::read();
+
+const char *StatsSocket::getBuffer() const;
+void StatsSocket::consume( size_t bytes );
+#endif

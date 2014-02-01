@@ -7,4 +7,4 @@ asio_http_server_SOURCES = asio/connection.cpp asio/io_service_pool.cpp asio/mai
 
 threads_http_server_SOURCES = threads/server.cpp
 
-loader_loader_SOURCES = loader/time.cpp loader/main.cpp
+loader_loader_SOURCES = loader/time.cpp loader/main.cpp loader/StatsSocket.cpp
