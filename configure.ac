@@ -91,7 +91,7 @@ AC_ARG_ENABLE( [pipe-ipc],
 	    [Use pipe IPC (instead of lock based shared memory) to activate worker threads]),
 	[ AC_MSG_RESULT([pipes]) ],
 	[
-	    AC_DEFINE([PTHREADS_IPC], [1], [Use shared memory and a lock to wake up worker threads])
+	    AC_DEFINE([PTHREAD_IPC], [1], [Use shared memory and a lock to wake up worker threads])
 	    AC_MSG_RESULT([pthread condition])
        	] )
 
