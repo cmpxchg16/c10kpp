@@ -185,33 +185,28 @@ void* client_handler(void* arg) {
 			if (strcmp(protocol, "HTTP/1.0") && strcmp(protocol, "HTTP/1.1")) {
 				size_t sent = write(connection_fd, bad_request_response,
 						strlen(bad_request_response));
-				assert(sent == strlen(bad_request_response));
 			} else if (strcmp(method, "GET")) {
 				char response[1024];
 
 				snprintf(response, sizeof(response),
 						bad_method_response_template, method);
 				size_t sent = write(connection_fd, response, strlen(response));
-				assert(sent == strlen(response));
 			} else {
 				int fd = open(url, O_RDONLY);
 				if (fd < 0) {
 					perror("open");
 					size_t sent = write(connection_fd, bad_request_response,
 							strlen(bad_request_response));
-					assert(sent == strlen(bad_request_response));
 				} else {
 					struct stat sb;
 					if (stat(url, &sb) == -1) {
 						perror("stat");
 						size_t sent = write(connection_fd, bad_request_response,
 								strlen(bad_request_response));
-						assert(sent == strlen(bad_request_response));
 					} else {
 						write(connection_fd, ok_response, strlen(ok_response));
 						size_t sent = sendfile(connection_fd, fd, NULL,
 								sb.st_size);
-						assert(sent == size_t(sb.st_size));
 					}
 				}
 
